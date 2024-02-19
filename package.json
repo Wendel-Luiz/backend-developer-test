@@ -11,5 +11,8 @@
     "packages": [
       "packages/*"
     ]
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.5.3"
   }
 }
