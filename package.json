@@ -8,9 +8,7 @@
   "license": "MIT",
   "private": true,
   "workspaces": {
-    "packages": [
-      "packages/*"
-    ]
+    "packages": ["packages/*"]
   },
   "devDependencies": {
     "@biomejs/biome": "^1.5.3"
