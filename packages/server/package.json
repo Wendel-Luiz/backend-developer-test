@@ -1,0 +1,7 @@
+{
+  "name": "@plooral/server",
+  "version": "1.0.0",
+  "description": "HTTP Server",
+  "main": "index.js",
+  "license": "MIT"
+}
