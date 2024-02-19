@@ -7,10 +7,16 @@
   "author": "Wendel-Luiz <wendel.luiz.profissional@gmail.com>",
   "license": "MIT",
   "private": true,
+  "scripts": {
+    "postinstall": "lefthook install"
+  },
   "workspaces": {
     "packages": ["packages/*"]
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.5.3"
+    "@biomejs/biome": "^1.5.3",
+    "@commitlint/cli": "^18.6.1",
+    "@commitlint/config-conventional": "^18.6.2",
+    "lefthook": "^1.6.1"
   }
 }
