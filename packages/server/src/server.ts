@@ -1,3 +1,4 @@
+import cors from 'cors'
 import express from 'express'
 import { CompanyModule } from './modules/company/module'
 import { JobModule } from './modules/job/module'
@@ -17,6 +18,7 @@ class Server {
   }
 
   private configure = async () => {
+    this.app.use(cors())
     this.app.use(express.json())
     this.app.use(express.urlencoded({ extended: true }))
 

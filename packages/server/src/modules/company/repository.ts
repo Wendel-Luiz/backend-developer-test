@@ -1,8 +1,11 @@
-import { Kysely } from 'kysely'
-import { DB } from '../../database/types'
+import { db } from '../../database/database'
 
 export class CompanyRepository {
-  constructor(private db: Kysely<DB>) {}
+  private readonly db
+
+  constructor() {
+    this.db = db
+  }
 
   findAll = async () => {
     return await this.db.selectFrom('companies').selectAll().execute()

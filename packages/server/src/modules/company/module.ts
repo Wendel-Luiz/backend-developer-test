@@ -1,5 +1,4 @@
 import express from 'express'
-import { db } from '../../database/database'
 import { CompanyController } from './controller'
 import { CompanyRepository } from './repository'
 import { CompanyService } from './service'
@@ -12,7 +11,7 @@ export class CompanyModule {
 
   constructor() {
     this.router = express.Router()
-    this.repository = new CompanyRepository(db)
+    this.repository = new CompanyRepository()
     this.service = new CompanyService(this.repository)
     this.controller = new CompanyController(this.service)
   }
