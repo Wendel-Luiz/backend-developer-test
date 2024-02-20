@@ -17,6 +17,9 @@ class Server {
   }
 
   private configure = async () => {
+    this.app.use(express.json())
+    this.app.use(express.urlencoded({ extended: true }))
+
     this.app.use('/job', this.jobModule.buildRoutes())
     this.app.use('/companies', this.companyModule.buildRoutes())
   }

@@ -9,12 +9,10 @@ export class CompanyRepository {
   }
 
   findById = async (id: string) => {
-    const company = await this.db
+    return await this.db
       .selectFrom('companies')
       .selectAll()
       .where('companies.id', '=', id)
-      .execute()
-
-    return company[0]
+      .executeTakeFirst()
   }
 }

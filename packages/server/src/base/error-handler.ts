@@ -9,7 +9,7 @@ export function formatedError(
 ): Response<AppResponse<string>> {
   if (err instanceof AppError) {
     return res.status(err.statusCode).send({
-      status: 200,
+      status: err.statusCode,
       message: 'An error has occured.',
       error: err.message
     })
@@ -18,7 +18,7 @@ export function formatedError(
   console.error((err as Error).message)
 
   return res.status(500).send({
-    status: 200,
+    status: 500,
     message: 'An error has occured.',
     error: 'Internal Server Error'
   })
