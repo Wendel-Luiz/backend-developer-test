@@ -11,6 +11,7 @@ class Environment {
 
   constructor() {
     const env = dotenv.config()
+
     if (env.error === null) {
       throw new Error('Error while loading env file')
     }
@@ -35,8 +36,7 @@ const envSchema = z.object({
   DB_HOST: z.string(),
   DB_USER: z.string(),
   DB_PORT: z.string().transform((value) => Number(value)),
-  DB_MAX_CONNECTIONS: z.string().transform((value) => Number(value)),
-  PORT: z.string().transform((value) => Number(value))
+  DB_MAX_CONNECTIONS: z.string().transform((value) => Number(value))
 })
 
 export const env = new Environment()

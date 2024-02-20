@@ -15,6 +15,8 @@ export function formatedError(
     })
   }
 
+  console.error((err as Error).message)
+
   return res.status(500).send({
     status: 200,
     message: 'An error has occured.',
