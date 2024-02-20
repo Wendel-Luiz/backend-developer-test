@@ -1,6 +1,7 @@
 import cors from 'cors'
 import express from 'express'
 import { appErrorMiddleware } from './middlewares/error'
+import { loggerMiddleware } from './middlewares/requestLogger'
 import { responseMiddleware } from './middlewares/response'
 import { CompanyModule } from './modules/company/module'
 import { JobModule } from './modules/job/module'
@@ -23,6 +24,7 @@ class Server {
     this.app.use(cors())
     this.app.use(express.json())
     this.app.use(express.urlencoded({ extended: true }))
+    this.app.use(loggerMiddleware)
 
     this.app.use('/job', this.jobModule.buildRoutes())
     this.app.use('/companies', this.companyModule.buildRoutes())

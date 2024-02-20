@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 import { z } from 'zod'
+import logger from '../config/logger'
 import { AppError } from '../core/errors'
 
 export function appErrorMiddleware(
@@ -26,7 +27,11 @@ export function appErrorMiddleware(
     })
   }
 
-  console.error((err as Error).message)
+  logger.error(
+    `Internal Server Error: Message: ${(err as Error).message} Stack: ${
+      (err as Error).stack
+    }`
+  )
 
   return res.status(500).json({
     status: 500,
