@@ -1,8 +1,13 @@
 import { Kysely } from 'kysely'
+import { db } from '../../database/database'
 import { DB, Jobs } from '../../database/types'
 
 export class JobRepository {
-  constructor(private db: Kysely<DB>) {}
+  private readonly db
+
+  constructor() {
+    this.db = db
+  }
 
   create = async (job: Jobs) => {
     return await this.db
