@@ -1,64 +1,57 @@
-import { Request, Response } from 'express'
-import { formatedError } from '../../base/error-handler'
-import { formatedResponse } from '../../base/response'
+import { NextFunction, Request, Response } from 'express'
+
 import { JobService } from './service'
+import { CreateJobBody } from './shemas'
 
 export class JobController {
   constructor(private service: JobService) {}
 
-  create = async (req: Request, res: Response) => {
+  create = async (
+    req: Request<CreateJobBody>,
+    res: Response,
+    next: NextFunction
+  ) => {
     try {
-      return formatedResponse(req, res, await this.service.create(req.body))
+      res.locals = await this.service.create(req.body)
+      next()
     } catch (err) {
-      return formatedError(req, res, err)
+      next(err)
     }
   }
 
-  publish = async (req: Request, res: Response) => {
+  publish = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      return formatedResponse(
-        req,
-        res,
-        await this.service.publish(req.params.job_id)
-      )
+      res.locals = await this.service.publish(req.params.job_id)
+      next()
     } catch (err) {
-      return formatedError(req, res, err)
+      next(err)
     }
   }
 
-  archive = async (req: Request, res: Response) => {
+  archive = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      return formatedResponse(
-        req,
-        res,
-        await this.service.archive(req.params.job_id)
-      )
+      res.locals = await this.service.archive(req.params.job_id)
+      next()
     } catch (err) {
-      return formatedError(req, res, err)
+      next(err)
     }
   }
 
-  update = async (req: Request, res: Response) => {
+  update = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      return formatedResponse(
-        req,
-        res,
-        await this.service.update(req.params.job_id, req.body)
-      )
+      res.locals = await this.service.update(req.params.job_id, req.body)
+      next()
     } catch (err) {
-      return formatedError(req, res, err)
+      next(err)
     }
   }
 
-  delete = async (req: Request, res: Response) => {
+  delete = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      return formatedResponse(
-        req,
-        res,
-        await this.service.delete(req.params.job_id)
-      )
+      res.locals = await this.service.delete(req.params.job_id)
+      next()
     } catch (err) {
-      return formatedError(req, res, err)
+      next(err)
     }
   }
 }

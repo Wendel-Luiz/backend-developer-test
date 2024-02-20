@@ -2,10 +2,10 @@ import {
   BadRequestException,
   InternalServerError,
   NotFoundException
-} from '../../base/errors'
-import { Jobs } from '../../database/types'
+} from '../../core/errors'
 import { CompanyRepository } from '../company/repository'
 import { JobRepository } from './repository'
+import { CreateJobBody } from './shemas'
 
 export class JobService {
   constructor(
@@ -13,7 +13,7 @@ export class JobService {
     private companyRepository: CompanyRepository
   ) {}
 
-  create = async (job: Jobs) => {
+  create = async (job: CreateJobBody) => {
     const company = await this.companyRepository.findById(job.company_id)
 
     if (!company) {
@@ -108,5 +108,9 @@ export class JobService {
     }
 
     await this.jobRepository.delete(id)
+
+    return {
+      id
+    }
   }
 }

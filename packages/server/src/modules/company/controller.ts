@@ -1,28 +1,24 @@
-import { Request, Response } from 'express'
-import { formatedError } from '../../base/error-handler'
-import { formatedResponse } from '../../base/response'
+import { NextFunction, Request, Response } from 'express'
 import { CompanyService } from './service'
 
 export class CompanyController {
   constructor(private service: CompanyService) {}
 
-  findAll = async (req: Request, res: Response) => {
+  findAll = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      return formatedResponse(req, res, await this.service.findAll())
+      res.locals = await this.service.findAll()
+      next()
     } catch (err) {
-      return formatedError(req, res, err)
+      next(err)
     }
   }
 
-  findById = async (req: Request, res: Response) => {
+  findById = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      return formatedResponse(
-        req,
-        res,
-        await this.service.findById(req.params.id)
-      )
+      res.locals = await this.service.findById(req.params.id)
+      next()
     } catch (err) {
-      return formatedError(req, res, err)
+      next(err)
     }
   }
 }

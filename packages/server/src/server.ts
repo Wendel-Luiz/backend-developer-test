@@ -1,5 +1,7 @@
 import cors from 'cors'
 import express from 'express'
+import { appErrorMiddleware } from './middlewares/error'
+import { responseMiddleware } from './middlewares/response'
 import { CompanyModule } from './modules/company/module'
 import { JobModule } from './modules/job/module'
 
@@ -24,6 +26,9 @@ class Server {
 
     this.app.use('/job', this.jobModule.buildRoutes())
     this.app.use('/companies', this.companyModule.buildRoutes())
+
+    this.app.use(appErrorMiddleware)
+    this.app.use(responseMiddleware)
   }
 
   private serve = async () => {

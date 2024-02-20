@@ -1,8 +1,18 @@
 import express from 'express'
+import { bodyValidator } from '../../middlewares/bodyValidator'
+import { paramValidator } from '../../middlewares/paramValidator'
 import { CompanyRepository } from '../company/repository'
 import { JobController } from './controller'
 import { JobRepository } from './repository'
 import { JobService } from './service'
+import {
+  archiveJobParamSchema,
+  createJobSchema,
+  deleteJobParamSchema,
+  publishJobParamSchema,
+  updateJobBodySchema,
+  updateJobParamSchema
+} from './shemas'
 
 export class JobModule {
   private router
@@ -21,11 +31,36 @@ export class JobModule {
   }
 
   buildRoutes = () => {
-    this.router.post('/', this.controller.create)
-    this.router.put('/:job_id/publish', this.controller.publish)
-    this.router.put('/:job_id/archive', this.controller.archive)
-    this.router.put('/:job_id', this.controller.update)
-    this.router.delete('/:job_id', this.controller.delete)
+    this.router.post(
+      '/',
+      bodyValidator(createJobSchema),
+      this.controller.create
+    )
+
+    this.router.put(
+      '/:job_id/publish',
+      paramValidator(publishJobParamSchema),
+      this.controller.publish
+    )
+
+    this.router.put(
+      '/:job_id/archive',
+      paramValidator(archiveJobParamSchema),
+      this.controller.archive
+    )
+
+    this.router.put(
+      '/:job_id',
+      bodyValidator(updateJobBodySchema),
+      paramValidator(updateJobParamSchema),
+      this.controller.update
+    )
+
+    this.router.delete(
+      '/:job_id',
+      paramValidator(deleteJobParamSchema),
+      this.controller.delete
+    )
 
     return this.router
   }

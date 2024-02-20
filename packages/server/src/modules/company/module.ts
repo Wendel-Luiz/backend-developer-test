@@ -1,6 +1,8 @@
 import express from 'express'
+import { paramValidator } from '../../middlewares/paramValidator'
 import { CompanyController } from './controller'
 import { CompanyRepository } from './repository'
+import { findByIdCompanyParamSchema } from './schemas'
 import { CompanyService } from './service'
 
 export class CompanyModule {
@@ -18,7 +20,12 @@ export class CompanyModule {
 
   buildRoutes = () => {
     this.router.get('/', this.controller.findAll)
-    this.router.get('/:id', this.controller.findById)
+
+    this.router.get(
+      '/:id',
+      paramValidator(findByIdCompanyParamSchema),
+      this.controller.findById
+    )
 
     return this.router
   }

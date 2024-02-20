@@ -1,4 +1,4 @@
-import { NotFoundException } from '../../base/errors'
+import { NotFoundException } from '../../core/errors'
 import { CompanyRepository } from './repository'
 
 export class CompanyService {

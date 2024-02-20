@@ -9,7 +9,13 @@ export class JobRepository {
     this.db = db
   }
 
-  create = async (job: Jobs) => {
+  create = async (job: {
+    title: string
+    company_id: string
+    location: string
+    description: string
+    notes: string
+  }) => {
     return await this.db
       .insertInto('jobs')
       .values({
