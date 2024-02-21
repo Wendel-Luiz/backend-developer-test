@@ -86,6 +86,46 @@ Resources:
         EntryPoints: 
         - app.ts
 
+  JobModerationFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: packages/serverless/job-moderator
+      Handler: app.handler
+      Runtime: nodejs20.x
+      Role: !GetAtt S3ExecutionRole.Arn
+      Environment:
+        Variables:
+          NODE_ENV: dev
+          DB_NAME: plooral
+          DB_HOST: 172.18.0.2
+          DB_USER: postgres
+          DB_PASSWORD: postgres
+          DB_PORT: 5432
+          DB_MAX_CONNECTIONS: 10
+          OPEN_AI_KEY: 
+      Architectures:
+      - x86_64
+      Events:
+        ProduceHTTP:
+          Type: Api
+          Properties:
+            Path: /feed
+            Method: post
+        ProduceCron:
+          Type: ScheduleV2
+          Properties:
+            Name: S3ProducerFunction
+            ScheduleExpression: 'rate(5 minute)'
+            Description: Function that saves the feed into S3
+    Metadata:
+      BuildMethod: esbuild
+      BuildProperties:
+        Minify: true
+        Target: es2020
+        Sourcemap: true
+        EntryPoints:
+        - app.ts
+
   S3ExecutionRole:
     Type: 'AWS::IAM::Role'
     Properties:
