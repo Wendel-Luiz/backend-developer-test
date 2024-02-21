@@ -1,3 +1,5 @@
+import { SQS } from '@aws-sdk/client-sqs'
+import { env } from '../../config/config'
 import {
   BadRequestException,
   InternalServerError,
@@ -32,20 +34,24 @@ export class JobService {
   }
 
   publish = async (id: string) => {
+    const sqs = new SQS()
     const job = await this.jobRepository.findById(id)
 
     if (!job) {
       throw new NotFoundException(`Job of id ${id} not found.`)
     }
 
-    const result = await this.jobRepository.publish(id)
+    const result = await sqs.sendMessage({
+      QueueUrl: env.SQS_QUEUE,
+      MessageBody: JSON.stringify(id)
+    })
 
-    if (!result?.id) {
-      throw new InternalServerError('Error creating a job.')
+    if (!result) {
+      throw new InternalServerError(`Error publishing job ${id}`)
     }
 
     return {
-      id: result.id
+      id
     }
   }
 

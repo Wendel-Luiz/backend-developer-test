@@ -8,6 +8,7 @@ class Environment {
   public readonly DB_USER: string
   public readonly DB_PORT: number
   public readonly DB_MAX_CONNECTIONS: number
+  public readonly SQS_QUEUE: string
 
   constructor() {
     const env = dotenv.config()
@@ -27,6 +28,7 @@ class Environment {
     this.DB_USER = parsed.data.DB_USER
     this.DB_PORT = parsed.data.DB_PORT
     this.DB_MAX_CONNECTIONS = parsed.data.DB_MAX_CONNECTIONS
+    this.SQS_QUEUE = parsed.data.SQS_QUEUE
   }
 }
 
@@ -36,7 +38,8 @@ const envSchema = z.object({
   DB_HOST: z.string(),
   DB_USER: z.string(),
   DB_PORT: z.string().transform((value) => Number(value)),
-  DB_MAX_CONNECTIONS: z.string().transform((value) => Number(value))
+  DB_MAX_CONNECTIONS: z.string().transform((value) => Number(value)),
+  SQS_QUEUE: z.string()
 })
 
 export const env = new Environment()
