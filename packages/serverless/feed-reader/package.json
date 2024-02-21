@@ -1,6 +1,20 @@
 {
-  "name": "@plooral/feed-consumer",
+  "name": "@plooral/feed-reader",
   "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT"
+  "description": "Feed Reader Lambda Function",
+  "main": "app.js",
+  "license": "MIT",
+  "scripts": {
+    "compile": "tsc"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.515.0",
+    "esbuild": "^0.14.14"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.92",
+    "@types/node": "^20.5.7",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.8.4"
+  }
 }
