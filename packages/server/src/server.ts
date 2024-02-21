@@ -1,5 +1,6 @@
 import cors from 'cors'
 import express from 'express'
+import logger from './config/logger'
 import { appErrorMiddleware } from './middlewares/error'
 import { loggerMiddleware } from './middlewares/requestLogger'
 import { responseMiddleware } from './middlewares/response'
@@ -41,5 +42,5 @@ class Server {
 try {
   new Server()
 } catch (err) {
-  console.log('Error running the server', err)
+  logger.fatal(`Error running the server: ${err}`)
 }

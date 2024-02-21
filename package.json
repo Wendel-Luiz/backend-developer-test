@@ -11,7 +11,7 @@
     "postinstall": "lefthook install"
   },
   "workspaces": {
-    "packages": ["packages/*"]
+    "packages": ["packages/*", "packages/serverless/*"]
   },
   "devDependencies": {
     "@biomejs/biome": "^1.5.3",
