@@ -22,6 +22,11 @@ Resources:
         IgnorePublicAcls      : true
         RestrictPublicBuckets : false
 
+  JobModerationQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: job-moderation-queue
+
   FeedWriterFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -106,17 +111,14 @@ Resources:
       Architectures:
       - x86_64
       Events:
-        ProduceHTTP:
-          Type: Api
+        MySQSEvent:
+          Type: SQS
           Properties:
-            Path: /feed
-            Method: post
-        ProduceCron:
-          Type: ScheduleV2
-          Properties:
-            Name: S3ProducerFunction
-            ScheduleExpression: 'rate(5 minute)'
-            Description: Function that saves the feed into S3
+            Queue: !GetAtt JobModerationQueue.Arn
+            BatchSize:  10
+            Enabled: true
+            FunctionResponseTypes:
+              - ReportBatchItemFailures
     Metadata:
       BuildMethod: esbuild
       BuildProperties:
