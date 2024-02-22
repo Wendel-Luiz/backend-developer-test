@@ -1,5 +1,31 @@
 # Backend Developer Technical Assessment
 
+## Project Overview
+This project was designed using a monorepo approach, that consists of one REST API server, and three lambda functions, each representing an independent application. AWS Sam is used to run and develop locally the lambda functions, and in the future could be used alongside a CloudFormation Template to deploy the infrastructure to AWS.
+
+Also, the project was developed using Docker Dev Containers to automatically configure a dev enviroment and its required dependencies.
+
+For the more technical side of the story, BiomeJS was used as a linter and formatter for the code, Lefthook to run the pre-commit hooks that formats the code and checks the commit message, and typescript was used as the programming language due to its type definitions, which greatly increases developer productivity. 
+
+### Steps to run the project
+
+1. **Clone the project and open it inside a dev container**: Doing this, the entire environment will be configured.
+1. **Write the .env files**: Use the .env.example files that exists in the server and serverless packages to write your own custon .env file.
+3. **Build the lambdas using the sam CLI**": Run the command `yarn serverless-build`
+2. **To start the `api server`**: Run the command `yarn server-local`.
+3. **To run the `feed-reader` lambda function**: Run the command `yarn feed-reader-local`.
+4. **To run the `feed-writer` lambda function**: Run the command `yarn feed-writer-local`.
+5. **To run the `job-moderator` lambda function**: Open the event.js file inside the job-moderator folder, and put your own id inside the `body` tag. Then run the command `yarn job-moderator-local`.
+
+## Bonus Questions
+
+1. **Scalability under high load**: Instead of using lambdas, i will migrate the function to a microservice running in ECS on top of AWS Fargate and behind a load balancer. In this way the number of concurrent database connections will be limited, and the service could scale to acomodate the high load.
+
+2. **Sub-millisecond latency**: Instead of saving the feed in S3, i will save it to AWS ElastiCache and replicate to multiple AWS Regions. In this way, it could theoretically achieve sub-millisecond latencies retrieving the feed.
+
+### Deploy
+Unfortunately due to time constraints, i was not able to deploy this application. But you can run and test it using the instructions detailed above.
+
 ## Welcome!
 
 We're excited to have you participate in our Backend Developer technical assessment. This test is designed to gauge your expertise in backend development, with a focus on architectural and organizational skills. Below, you'll find comprehensive instructions to set up and complete the project. Remember, completing every step is not mandatory; some are optional but can enhance your application.

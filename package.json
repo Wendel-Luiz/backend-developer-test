@@ -8,10 +8,11 @@
   "license": "MIT",
   "private": true,
   "scripts": {
+    "serverless-build": "sam build",
     "server-local": "yarn workspace @plooral/server start:dev",
-    "feed-reader": "sam build && sam local invoke FeedReaderFunction -e packages/serverless/feed-reader/events/event.json",
-    "feed-writer": "sam build && sam local invoke FeedWriterFunction -e packages/serverless/feed-writer/events/event.json",
-    "job-moderator": "sam build && sam local invoke FeedWriterFunction -e packages/serverless/job-moderator/events/event.json",
+    "feed-reader-local": "sam local start-api --env-vars packages/serverless/env.json",
+    "feed-writer-local": "sam local invoke FeedWriterFunction --env-vars packages/serverless/env.json",
+    "job-moderator-local": "sam local invoke FeedWriterFunction -e packages/serverless/job-moderator/events/event.json --env-vars packages/serverless/env.json",
     "postinstall": "lefthook install"
   },
   "workspaces": {

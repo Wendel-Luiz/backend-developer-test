@@ -8,6 +8,8 @@ class Environment {
   public readonly DB_PASSWORD: string
   public readonly DB_PORT: number
   public readonly DB_MAX_CONNECTIONS: number
+  public readonly BUCKET: string
+  public readonly S3KEY: string
 
   constructor() {
     const parsed = envSchema.safeParse(process.env)
@@ -22,6 +24,8 @@ class Environment {
     this.DB_PASSWORD = parsed.data.DB_PASSWORD
     this.DB_PORT = parsed.data.DB_PORT
     this.DB_MAX_CONNECTIONS = parsed.data.DB_MAX_CONNECTIONS
+    this.BUCKET = parsed.data.BUCKET
+    this.S3KEY = parsed.data.S3KEY
   }
 }
 
@@ -32,7 +36,9 @@ const envSchema = z.object({
   DB_USER: z.string(),
   DB_PASSWORD: z.string(),
   DB_PORT: z.string().transform((value) => Number(value)),
-  DB_MAX_CONNECTIONS: z.string().transform((value) => Number(value))
+  DB_MAX_CONNECTIONS: z.string().transform((value) => Number(value)),
+  BUCKET: z.string(),
+  S3KEY: z.string()
 })
 
 export const env = new Environment()

@@ -5,6 +5,7 @@
   "main": "app.js",
   "license": "MIT",
   "scripts": {
+    "local": "sam local invoke FeedWriterFunction --env-vars env.json",
     "compile": "tsc"
   },
   "dependencies": {

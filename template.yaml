@@ -36,13 +36,15 @@ Resources:
       Role: !GetAtt S3ExecutionRole.Arn
       Environment:
         Variables:
-          NODE_ENV: dev
-          DB_NAME: plooral
-          DB_HOST: 172.18.0.2
-          DB_USER: postgres
-          DB_PASSWORD: postgres
-          DB_PORT: 5432
-          DB_MAX_CONNECTIONS: 10
+          NODE_ENV: "NODE_ENV"
+          DB_NAME: "DB_NAME"
+          DB_HOST: "DB_HOST"
+          DB_USER: "DB_USER"
+          DB_PASSWORD: "DB_PASSWORD"
+          DB_PORT: "DB_PORT"
+          DB_MAX_CONNECTIONS: "DB_MAX_CONNECTIONS"
+          BUCKET: "BUCKET"
+          S3KEY: "S3KEY"
       Architectures:
       - x86_64
       Events:
@@ -76,6 +78,10 @@ Resources:
       MemorySize: 256
       Architectures:
         - x86_64
+      Environment:
+        Variables:
+          BUCKET: "BUCKET"
+          S3KEY: "S3KEY"
       Events:
         ReadFeedHttp:
           Type: HttpApi
@@ -100,14 +106,14 @@ Resources:
       Role: !GetAtt S3ExecutionRole.Arn
       Environment:
         Variables:
-          NODE_ENV: dev
-          DB_NAME: plooral
-          DB_HOST: 172.18.0.2
-          DB_USER: postgres
-          DB_PASSWORD: postgres
-          DB_PORT: 5432
-          DB_MAX_CONNECTIONS: 10
-          OPEN_AI_KEY: 
+          NODE_ENV: "NODE_ENV"
+          DB_NAME: "DB_NAME"
+          DB_HOST: "DB_HOST"
+          DB_USER: "DB_USER"
+          DB_PASSWORD: "DB_PASSWORD"
+          DB_PORT: "DB_PORT"
+          DB_MAX_CONNECTIONS: "DB_MAX_CONNECTIONS"
+          OPEN_AI_KEY: "OPEN_AI_KEY"
       Architectures:
       - x86_64
       Events:
