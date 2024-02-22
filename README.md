@@ -10,8 +10,8 @@ For the more technical side of the story, BiomeJS was used as a linter and forma
 ### Steps to run the project
 
 1. **Clone the project and open it inside a dev container**: Doing this, the entire environment will be configured.
-1. **Write the .env files**: Use the .env.example files that exists in the server and serverless packages to write your own custon .env file.
-3. **Build the lambdas using the sam CLI**": Run the command `yarn serverless-build`
+1. **Write the .env files**: Use the .env.example files that exists in the server and serverless packages to write your own custom .env file.
+3. **Build the lambdas using the SAM CLI**": Run the command `yarn serverless-build`
 2. **To start the `api server`**: Run the command `yarn server-local`.
 3. **To run the `feed-reader` lambda function**: Run the command `yarn feed-reader-local`.
 4. **To run the `feed-writer` lambda function**: Run the command `yarn feed-writer-local`.
